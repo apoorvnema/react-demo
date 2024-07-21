@@ -1,12 +1,18 @@
-function ExpenseItem(){
-    return (
-      <>
-        <div>Date <p>15 August 2023</p></div>
-        <div>Title <p>Book</p></div>
-        <div>Amount <p>$10</p></div>
-        <div>Location <p>Delhi</p></div>
-      </>
-    )
-  }
-  
-  export default ExpenseItem;
+import "./ExpenseItem.css";
+
+function ExpenseItem() {
+  return (
+    <div className="expense-item">
+      <div>15 August 2023</div>
+      <div className="expense-item__description">
+        <h2 className="expense-item h2">Book</h2>
+        <div className="expense-item__price">$10</div>
+      </div>
+      <div className="expense-item__location">
+        Delhi
+      </div>
+    </div>
+  );
+}
+
+export default ExpenseItem;
