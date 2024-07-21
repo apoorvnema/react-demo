@@ -1,18 +1,18 @@
-import React from 'react'
-import './ExpenseDate.css'
+import "./ExpenseDate.css";
+import Card from './Card'
 
-const ExpenseDate = (props) => {
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    const month = months[props.date.getMonth()];
-    const year = props.date.getFullYear();
-    const day = String(props.date.getDate());
-    return (
-        <div className='expense-date'>
-            <div className='expense-date__month'>{month}</div>
-            <div className='expense-date__year'>{year}</div>
-            <div className='expense-date__day'>{day}</div>
-        </div>
-    )
+function ExpenseDate(props) {
+  const month = props.date.toLocaleString("en-US", { month: "long" });
+  const year = props.date.getFullYear();
+  const day = props.date.toLocaleString("en-US", { day: "2-digit" });
+
+  return (
+    <Card className="expense-date">
+      <div className="expense-date__month">{month}</div>
+      <div className="expense-date__year">{year}</div>
+      <div className="expense-date__day">{day}</div>
+    </Card>
+  );
 }
 
-export default ExpenseDate
+export default ExpenseDate;

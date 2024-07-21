@@ -1,6 +1,7 @@
 import ExpenseItem from "./ExpenseItem";
 import "./Expenses.css";
 import React from 'react'
+import Card from './Card'
 
 const Expenses = () => {
     const expenses = [
@@ -11,7 +12,7 @@ const Expenses = () => {
     ];
 
     return (
-        <div className="expenses">
+        <Card className="expenses">
             {expenses.map((expense) => {
                 return (
                     <ExpenseItem
@@ -22,7 +23,7 @@ const Expenses = () => {
                     />
                 );
             })}
-        </div>
+        </Card>
     )
 }
 
