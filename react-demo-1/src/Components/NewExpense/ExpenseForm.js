@@ -2,20 +2,37 @@ import React, { useState } from "react";
 import "./ExpenseForm.css";
 
 const ExpenseForm = () => {
-    const [enteredTitle, setEnteredTitle] = useState("");
-    const [enteredAmount, setEnteredAmount] = useState("");
-    const [enteredDate, setEnteredDate] = useState("");
 
+    const [userInput, setUserInput] = useState({
+        title: "",
+        amount: "",
+        date: ""
+    });
     const titleChangeHandler = (event) => {
-        setEnteredTitle(event.target.value);
+        setUserInput((prevState) => {
+            return {
+                ...prevState,
+                title: event.target.value
+            }
+        })
     };
 
     const amountChangeHandler = (event) => {
-        setEnteredAmount(event.target.value);
+        setUserInput((prevState) => {
+            return {
+                ...prevState,
+                amount: event.target.value
+            }
+        })
     };
 
     const dateChangeHandler = (event) => {
-        setEnteredDate(event.target.value);
+        setUserInput((prevState) => {
+            return {
+                ...prevState,
+                date: event.target.value
+            }
+        })
     };
 
     return (
@@ -31,7 +48,13 @@ const ExpenseForm = () => {
                 </div>
                 <div className="new-expense__control">
                     <label htmlFor="date">Date</label>
-                    <input type="date" id="date" min="2023-01-01" max="2024-12-31" onChange={dateChangeHandler} />
+                    <input
+                        type="date"
+                        id="date"
+                        min="2023-01-01"
+                        max="2024-12-31"
+                        onChange={dateChangeHandler}
+                    />
                 </div>
             </div>
             <div className="new-expense__actions">
