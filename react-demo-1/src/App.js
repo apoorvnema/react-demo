@@ -1,7 +1,11 @@
+import React from "react";
 import Expenses from "./Components/Expenses/Expenses";
 import NewExpense from "./Components/NewExpense/NewExpense";
 
-function App() {
+const App = () => {
+  const saveExpenseDataHandler = (enteredExpenseData) => {
+    console.log(enteredExpenseData)
+  }
   const expenses = [
     { id: 1, title: "Insurance", date: new Date(2023, 7, 15), price: 100 },
     { id: 2, title: "Book", date: new Date(2023, 8, 25), price: 10 },
@@ -11,11 +15,10 @@ function App() {
 
   return (
     <div>
-      <h2>Let's get Started</h2>
-      <NewExpense />
+      <NewExpense onAddExpense={saveExpenseDataHandler} />
       <Expenses expenses={expenses} />
     </div>
   );
-}
+};
 
 export default App;
