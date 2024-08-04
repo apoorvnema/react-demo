@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 
 import Card from "../UI/Card/Card";
 import classes from "./Login.module.css";
@@ -42,9 +42,12 @@ const Login = (props) => {
 
     useEffect(() => {
         const timer = setTimeout(() => {
+            console.log("Checking form validity...");
             setFormIsValid(emailIsValid && passwordIsValid);
         }, 500);
+
         return () => {
+            console.log("CLEANUP");
             clearTimeout(timer);
         };
     }, [emailIsValid, passwordIsValid]);
