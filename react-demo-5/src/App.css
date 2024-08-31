@@ -27,3 +27,30 @@ button:active {
   background-color: #460897;
   border-color: #460897;
 }
+
+section h2 {
+  margin-top: 0;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 700;
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.form-group input[type="date"] {
+  padding: 6px;
+}
+

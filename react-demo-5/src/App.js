@@ -9,6 +9,12 @@ function App() {
   const [error, setError] = useState(null);
   const retryTimer = useRef(null);
   const [retrying, setRetrying] = useState(false);
+  const [newMovie, setNewMovie] = useState({
+    id: null,
+    title: '',
+    openingText: '',
+    releaseDate: ''
+  });
 
   const fetchMoviesHandler = useCallback(async () => {
     setIsLoading(true);
@@ -50,12 +56,23 @@ function App() {
     return () => {
       clearTimeout(retryTimer.current);
     };
-  }, [retrying]);
+  }, [retrying, fetchMoviesHandler]);
 
   const cancelRetrying = () => {
     clearTimeout(retryTimer.current);
     setRetrying(false);
     setError('Retrying canceled by user');
+  };
+
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    setNewMovie((prev) => ({ ...prev, id: Math.random().toString() }))
+    setNewMovie((prev) => ({ ...prev, [name]: value }));
+  };
+  const handleAddMovie = () => {
+    console.log(newMovie);
+    setNewMovie({ title: '', openingText: '', releaseDate: '' });
+    setMovies((prev) => [...prev, newMovie]);
   };
 
   let content = <p>Found no movies</p>;
@@ -75,6 +92,43 @@ function App() {
 
   return (
     <React.Fragment>
+      <section>
+        <h2>Add New Movie</h2>
+        <form>
+          <div className="form-group">
+            <label htmlFor="title">Title</label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              value={newMovie.title}
+              onChange={handleFormChange}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="openingText">Opening Text</label>
+            <textarea
+              id="openingText"
+              name="openingText"
+              value={newMovie.openingText}
+              onChange={handleFormChange}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="releaseDate">Release Date</label>
+            <input
+              type="date"
+              id="releaseDate"
+              name="releaseDate"
+              value={newMovie.releaseDate}
+              onChange={handleFormChange}
+            />
+          </div>
+          <button type="button" onClick={handleAddMovie}>
+            Add Movie
+          </button>
+        </form>
+      </section>
       <section>
         <button onClick={fetchMoviesHandler} disabled={retrying}>
           {retrying ? 'Retrying...' : 'Fetch Movies'}
