@@ -2,9 +2,11 @@ import { useContext } from 'react';
 import classes from './ProfileForm.module.css';
 import AuthContext from '../../store/auth-context';
 import { useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const ProfileForm = () => {
   const authCtx = useContext(AuthContext);
+  const history = useHistory();
   const newPasswordRef = useRef();
   const updatePasswordHandler = async (event) => {
     event.preventDefault();
@@ -21,6 +23,7 @@ const ProfileForm = () => {
       }
     });
     alert('Password updated successfully');
+    history.replace('/');
   }
   catch(error){
     console.log(error.message);
