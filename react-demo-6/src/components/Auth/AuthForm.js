@@ -13,13 +13,39 @@ const AuthForm = () => {
     event.preventDefault();
     setIsLoading(true);
 
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+
+    const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
+    const url = isLogin
+      ? `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apiKey}`
+      : `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${apiKey}`;
+
     try {
-      await new Promise((resolve, reject) => setTimeout(() => reject(new Error('Signup failed')), 2000));
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email,
+          password,
+          returnSecureToken: true
+        })
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error.message || 'Authentication failed');
+      }
+
+      await response.json();
+      alert(isLogin ? 'Login successful' : 'Signup successful');
     } catch (err) {
       alert(err.message);
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   return (
