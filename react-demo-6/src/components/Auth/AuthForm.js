@@ -44,10 +44,13 @@ const AuthForm = () => {
       }
 
       const data = await response.json();
-      console.log(data);
-      authCtx.login(data.idToken);
+      const expirationTime = new Date(
+        new Date().getTime() + +data.expiresIn * 1000
+      ).toISOString();
+
+      authCtx.login(data.idToken, expirationTime);
       alert(isLogin ? 'Login successful' : 'Signup successful');
-      history.replace('/')
+      history.replace('/');
     } catch (err) {
       alert(err.message);
     } finally {
